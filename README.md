@@ -3,6 +3,8 @@
 [![Python free tools tests](https://github.com/karimzeftawy/zeftawy-free-tools/actions/workflows/tests.yml/badge.svg)](https://github.com/karimzeftawy/zeftawy-free-tools/actions/workflows/tests.yml)
 
 
+**[Explore the tool showcase and tutorials](https://karimzeftawy.github.io/zeftawy-free-tools/)** — browse the free utilities, quick explanations, and links to their source code.
+
 Three small, fully free, open-source Python CLI utilities. The **complete free source** is right here in GitHub; downloading from Gumroad or buying anything is not required. Run locally with Python 3.9+ and no external Python dependencies.
 
 ## Three free tools
@@ -45,4 +47,4 @@ Learn the underlying techniques before using the tools:
 - [Check TLS certificate expiration without disabling verification](guides/check-tls-certificate-expiry-python.md)
 - [Understand the difference between DNS checks and TCP connectivity](guides/python-dns-tcp-troubleshooting.md)
 
-A lightweight, responsive [tool showcase and landing page](docs/index.html) is included. It is ready to serve using **GitHub Pages** from the `main` branch and `/docs` folder once Pages is enabled in repository settings. The page is not a hosted service and the tools themselves run locally.
+**[GitHub Pages tool showcase](https://karimzeftawy.github.io/zeftawy-free-tools/)** is published from the `main` branch's `/docs` folder. The page is a static showcase; the actual tools run locally on your machine.
