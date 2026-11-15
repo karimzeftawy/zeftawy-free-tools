@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Clean Messy CSV Files with Python: UTF-8 BOM and Blank Rows</title><meta name="description" content="Python CSV tutorial: safely trim whitespace, handle UTF-8 BOM, preserve duplicates and write separate clean files."><meta name="robots" content="index,follow"><link rel="canonical" href="https://karimzeftawy.github.io/zeftawy-free-tools/csv-cleaning.html"><link rel="stylesheet" href="styles.css"><meta property="og:title" content="Clean Messy CSV Files with Python: UTF-8 BOM and Blank Rows"><meta property="og:description" content="Python CSV tutorial: safely trim whitespace, handle UTF-8 BOM, preserve duplicates and write separate clean files."></head><body><header class="top"><div class="wrap"><a href="./" class="brand">ZeFtawy <span>Free Tools</span></a><nav><a href="./#tools">Free tools</a><a href="./#guides">Guides</a><a href="https://github.com/karimzeftawy/zeftawy-free-tools">Source</a></nav></div></header><main class="wrap">
+<article class="article"><div class="eyebrow">Python guide — CSV</div><h1>Clean CSV exports safely without Pandas</h1><p class="lead">Real CSV exports contain leading whitespace, all-blank records, quoted commas and sometimes a UTF-8 byte-order mark.</p>
+<h2>Use a parser, not split()</h2><p>A naive <code>line.split(",")</code> breaks data such as <code>"New York, NY"</code>. Python's standard <code>csv</code> module understands quoting. <code>utf-8-sig</code> gracefully handles BOM-encoded files.</p>
+<pre><code>import csv
+with open("input.csv", encoding="utf-8-sig", newline="") as src:
+    for row in csv.reader(src):
+        cleaned = [cell.strip() for cell in row]
+        if cleaned and any(cleaned):
+            print(cleaned)</code></pre>
+<h2>Never overwrite the original</h2><p>Open a different output file in exclusive-create mode <code>"x"</code> to avoid overwriting existing work. Keep duplicates unless you explicitly intend to remove repeated records; identical rows can reflect valid separate events.</p>
+<pre><code>with open("input.csv", encoding="utf-8-sig", newline="") as src:
+    with open("output.csv", "x", encoding="utf-8", newline="") as dst:
+        writer = csv.writer(dst)
+        for row in csv.reader(src):
+            row = [item.strip() for item in row]
+            if row and any(row):
+                writer.writerow(row)</code></pre>
+<div class="note">Simple cleanup cannot repair malformed CSV, sanitize spreadsheet formulas or infer types. Test on sample data before processing important records.</div>
+<h2>Run the free version</h2><p><a href="https://github.com/karimzeftawy/zeftawy-free-tools/tree/main/cleancsv-lite">CleanCSV Lite includes source code and tests</a>. <a href="https://zeftawy.gumroad.com/l/rwsbgq?utm_source=github_pages&amp;utm_medium=csv_guide&amp;utm_campaign=free_tools">Download the free ZIP</a>. The optional <a href="https://zeftawy.gumroad.com/l/jnqegk?utm_source=github_pages&amp;utm_medium=csv_guide&amp;utm_campaign=pro">CleanCSV Pro ($8)</a> adds header normalization and exact deduplication.</p></article></main><footer><div class="wrap">© 2026 ZeFtawy · MIT open source · Small educational CLI tools, not hosted monitoring services. <a href="https://github.com/karimzeftawy/zeftawy-free-tools">GitHub</a></div></footer></body></html>

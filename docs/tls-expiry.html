@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How to Check Verified TLS Certificate Expiry in Python</title><meta name="description" content="Learn a safe Python ssl.create_default_context example for certificate expiry, with hostname verification and failure handling."><meta name="robots" content="index,follow"><link rel="canonical" href="https://karimzeftawy.github.io/zeftawy-free-tools/tls-expiry.html"><link rel="stylesheet" href="styles.css"><meta property="og:title" content="How to Check Verified TLS Certificate Expiry in Python"><meta property="og:description" content="Learn a safe Python ssl.create_default_context example for certificate expiry, with hostname verification and failure handling."></head><body><header class="top"><div class="wrap"><a href="./" class="brand">ZeFtawy <span>Free Tools</span></a><nav><a href="./#tools">Free tools</a><a href="./#guides">Guides</a><a href="https://github.com/karimzeftawy/zeftawy-free-tools">Source</a></nav></div></header><main class="wrap">
+<article class="article"><div class="eyebrow">Python guide — TLS</div><h1>Check TLS certificate expiry without disabling verification</h1><p class="lead">A useful expiry check should still authenticate the server. Avoid disabling hostname or CA validation for ordinary operational checks.</p>
+<h2>Verify the handshake</h2><pre><code>import ssl
+import socket
+host = "example.com"
+ctx = ssl.create_default_context()
+with socket.create_connection((host, 443), timeout=5) as sock:
+    with ctx.wrap_socket(sock, server_hostname=host) as tls:
+        cert = tls.getpeercert()
+print(cert["notAfter"])</code></pre>
+<p>Python's default TLS context verifies the CA chain and hostname. <code>server_hostname</code> supplies the intended name (and SNI).</p>
+<h2>Calculate remaining days in UTC</h2><pre><code>from datetime import datetime, timezone
+import ssl
+seconds = ssl.cert_time_to_seconds(cert["notAfter"])
+expiration = datetime.fromtimestamp(seconds, timezone.utc)
+days = (expiration - datetime.now(timezone.utc)).total_seconds()/86400
+print(f"Days remaining: {days:.1f}")</code></pre>
+<h2>What if the certificate is expired?</h2><p>An expired, self-signed or hostname-mismatched certificate typically fails validation before Python returns verified metadata. Treat this as a validation error, not as a success. Don't silently turn off TLS verification to make a monitoring dashboard look healthy.</p>
+<div class="note">This example is one manual check, not a scheduled monitoring or vulnerability scanning service. Bundled offline data is synthetic and clearly marked as such.</div>
+<p><a href="https://github.com/karimzeftawy/zeftawy-free-tools/tree/main/tls-expiry-lite">View free TLS Expiry Lite source and tests</a> or <a href="https://zeftawy.gumroad.com/l/vuiwlv?utm_source=github_pages&amp;utm_medium=tls_guide&amp;utm_campaign=free_tools">download the free ZIP</a>. For additional certificate metadata and JSON, <a href="https://zeftawy.gumroad.com/l/wjdwi?utm_source=github_pages&amp;utm_medium=tls_guide&amp;utm_campaign=pro">CertWatch ($15)</a> is an optional upgrade.</p></article></main><footer><div class="wrap">© 2026 ZeFtawy · MIT open source · Small educational CLI tools, not hosted monitoring services. <a href="https://github.com/karimzeftawy/zeftawy-free-tools">GitHub</a></div></footer></body></html>

@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Python DNS Lookup and TCP Connection Troubleshooting Examples</title><meta name="description" content="Discover why DNS lookups do not guarantee service availability, and learn safe Python DNS and single-port TCP examples."><meta name="robots" content="index,follow"><link rel="canonical" href="https://karimzeftawy.github.io/zeftawy-free-tools/network-checks.html"><link rel="stylesheet" href="styles.css"><meta property="og:title" content="Python DNS Lookup and TCP Connection Troubleshooting Examples"><meta property="og:description" content="Discover why DNS lookups do not guarantee service availability, and learn safe Python DNS and single-port TCP examples."></head><body><header class="top"><div class="wrap"><a href="./" class="brand">ZeFtawy <span>Free Tools</span></a><nav><a href="./#tools">Free tools</a><a href="./#guides">Guides</a><a href="https://github.com/karimzeftawy/zeftawy-free-tools">Source</a></nav></div></header><main class="wrap">
+<article class="article"><div class="eyebrow">Python guide — Networking</div><h1>DNS resolution is not a TCP health check</h1><p class="lead">A hostname can resolve perfectly while its service is down. Use separate tests for name resolution, transport connectivity and application health.</p>
+<h2>Resolve the hostname</h2><pre><code>import socket
+records = socket.getaddrinfo("example.com", None, type=socket.SOCK_STREAM)
+addresses = sorted({item[4][0] for item in records})
+print(addresses)</code></pre>
+<p>Results can vary with IPv4/IPv6, resolver configuration, network location and time. A successful response gives addresses, not proof of service health.</p>
+<h2>Test one TCP port</h2><pre><code>try:
+    with socket.create_connection(("example.com",443), timeout=3):
+        print("TCP connected")
+except OSError as exc:
+    print(f"TCP failed: {exc}")</code></pre>
+<p>Connection refusal suggests no accepting listener or an active reject. Timeouts may result from filtering, packet loss, routing issues or an unresponsive host. A successful TCP handshake still does not validate the HTTP service or TLS certificate.</p>
+<div class="note">Only test systems you manage or have permission to assess. This is a single chosen TCP-port check, not broad scanning.</div>
+<p><a href="https://github.com/karimzeftawy/zeftawy-free-tools/tree/main/netcheck-lite">NetCheck Lite source and tests are free</a>; a <a href="https://zeftawy.gumroad.com/l/tkdxcl?utm_source=github_pages&amp;utm_medium=dns_guide&amp;utm_campaign=free_tools">free ZIP</a> is also available. For optional selected multiple ports and JSON/timing output, see <a href="https://zeftawy.gumroad.com/l/idlle?utm_source=github_pages&amp;utm_medium=dns_guide&amp;utm_campaign=pro">NetCheck ($12)</a>.</p></article></main><footer><div class="wrap">© 2026 ZeFtawy · MIT open source · Small educational CLI tools, not hosted monitoring services. <a href="https://github.com/karimzeftawy/zeftawy-free-tools">GitHub</a></div></footer></body></html>

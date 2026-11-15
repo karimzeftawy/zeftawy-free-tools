@@ -33,3 +33,13 @@ Continuous integration runs the tests on pushes and pull requests.
 [Complete Developer Toolkit — 10 utilities and templates for $60](https://zeftawy.gumroad.com/l/npjmye?utm_source=github&utm_medium=repository&utm_campaign=free_tools). Buying is not required to use this repository.
 
 **Scope:** Small educational and productivity utilities, not commercial-grade monitoring or security products. Report bugs through GitHub Issues and do not post secrets or personal logs.
+
+## Practical tutorials
+
+Learn the underlying techniques before using the tools:
+
+- [Clean CSV data safely in Python (BOM, blanks, and duplicates)](guides/clean-csv-files-python.md)
+- [Check TLS certificate expiration without disabling verification](guides/check-tls-certificate-expiry-python.md)
+- [Understand the difference between DNS checks and TCP connectivity](guides/python-dns-tcp-troubleshooting.md)
+
+A lightweight, responsive [tool showcase and landing page](docs/index.html) is included. It is ready to serve using **GitHub Pages** from the `main` branch and `/docs` folder once Pages is enabled in repository settings. The page is not a hosted service and the tools themselves run locally.
