@@ -1,5 +1,8 @@
 # Free Python Tools — CleanCSV, TLS Expiry & NetCheck
 
+[![Python free tools tests](https://github.com/karimzeftawy/zeftawy-free-tools/actions/workflows/tests.yml/badge.svg)](https://github.com/karimzeftawy/zeftawy-free-tools/actions/workflows/tests.yml)
+
+
 Three small, fully free, open-source Python CLI utilities. The **complete free source** is right here in GitHub; downloading from Gumroad or buying anything is not required. Run locally with Python 3.9+ and no external Python dependencies.
 
 ## Three free tools
