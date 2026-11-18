@@ -7,6 +7,8 @@
 
 Three small, fully free, open-source Python CLI utilities. The **complete free source** is right here in GitHub; downloading from Gumroad or buying anything is not required. Run locally with Python 3.9+ and no external Python dependencies.
 
+**[Try our free online CSV cleaner](https://karimzeftawy.github.io/zeftawy-free-tools/csv-cleaner.html)** — instantly trim whitespace and remove blank rows in your browser. No uploads, no signup; no Python install needed.
+
 ## Three free tools
 
 | Tool | Purpose | Source | Optional free Gumroad ZIP | Optional paid upgrade |
