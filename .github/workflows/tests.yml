@@ -1,4 +1,4 @@
-name: Python free tools tests
+name: Free tools tests
 on:
   push:
   pull_request:
@@ -22,3 +22,12 @@ jobs:
       - name: Test NetCheck Lite
         working-directory: netcheck-lite
         run: python -m unittest discover -s tests -v
+  browser-csv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test browser CSV parser and formatter
+        run: node --test tests/browser-csv.test.cjs
